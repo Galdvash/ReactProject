@@ -31,7 +31,7 @@ const NavBar = ({ onSearch }) => {
       localStorage.removeItem("userInformation");
       localStorage.removeItem("token");
       navigate("/");
-      toast.success('Logged out successfully'); // Set toast message
+      toast.success("Logged out successfully"); // Set toast message
     }
   };
 
@@ -51,22 +51,21 @@ const NavBar = ({ onSearch }) => {
         <img className="logo" src={Jobs} alt="jobs" />
 
         <div className="hamburger" onClick={toggleMenu}>
-          <MenuIcon className="menuIcon" style={{ width: '33px', height: '35px' }} />
+          <MenuIcon
+            className="menuIcon"
+            style={{ width: "33px", height: "35px" }}
+          />
         </div>
 
         <ul className={`link_list ${isMenuOpen ? "open" : ""}`}>
+          <li>
+            <Link className="link" to={"/"}>
+              About
+            </Link>
+          </li>
+
           {userInformation?.isAdmin && (
             <>
-              <li>
-                <Link className="link" to={"/"}>
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link className="link" to={"/FindTheOne"}>
-                  FindTheOne
-                </Link>
-              </li>
               <li>
                 <Link className="link" to={"/myCards"}>
                   My Cards
@@ -82,62 +81,48 @@ const NavBar = ({ onSearch }) => {
           {userInformation?.isBusiness && (
             <>
               <li>
-                <Link className="link" to={"/"}>
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link className="link" to={"/FindTheOne"}>
-                  FindTheOne
-                </Link>
-              </li>
-              <li>
                 <Link className="link" to={"/myCards"}>
                   My Cards
                 </Link>
               </li>
             </>
           )}
-          {!userInformation?.isAdmin && !userInformation?.isBusiness && userInformation && (
-            <>
+
+          {!userInformation?.isAdmin &&
+            !userInformation?.isBusiness &&
+            userInformation && (
               <li>
-                <Link className="link" to={"/"}>
-                  About
+                <Link className="link" to={"/myCards"}>
+                  My Cards
                 </Link>
               </li>
+            )}
+
+          {!userInformation &&
+            !userInformation?.isAdmin &&
+            !userInformation?.isBusiness && (
               <li>
-                <Link className="link" to={"/FindTheOne"}>
-                  FindTheOne
-                </Link>
-              </li>
-            </>
-          )}
-          {!userInformation && !userInformation?.isAdmin && !userInformation?.isBusiness && (
-            <>
-            <li>
-              <Link className="link" to={"/"}>
-                About
-              </Link>
-            </li>
-           </> 
-          )}
-           <li>
-              {userInformation ? (
-                <button className="link" onClick={handleLogout}>
-                  Logout
-                </button>
-              ) : (
                 <Link className="link" to={"/register"}>
                   Register
                 </Link>
-              )}
-            </li>
+              </li>
+            )}
+
+          <li>
+            {userInformation ? (
+              <button className="link" onClick={handleLogout}>
+                Logout
+              </button>
+            ) : null}
+          </li>
 
           <div className="moveRight">
             <li>
               <div className="searchBar">
                 <input
-                  className={isExpanded ? "expanded searchInput" : "searchInput"}
+                  className={
+                    isExpanded ? "expanded searchInput" : "searchInput"
+                  }
                   type="text"
                   placeholder="Search Your Card..."
                   value={searchQuery}
@@ -147,7 +132,9 @@ const NavBar = ({ onSearch }) => {
                   src={SearchIcon}
                   alt="Search Icon"
                   onClick={handleSearchIconClick}
-                  className={isExpanded ? "searchIcon searchIconMoved" : "searchIcon"}
+                  className={
+                    isExpanded ? "searchIcon searchIconMoved" : "searchIcon"
+                  }
                 />
               </div>
             </li>
