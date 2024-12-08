@@ -1,7 +1,5 @@
-// App.js
-
-import React,{useState} from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import NavBar from "./component/Navbar/Navbar";
 import About from "./component/About/About";
 import FindTheOne from "./component/FindTheOne/FindTheOne";
@@ -20,6 +18,7 @@ const App = () => {
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
+
   return (
     <ThemeProvider>
       <UserProvider>
@@ -27,17 +26,22 @@ const App = () => {
           <NavBar onSearch={handleSearch} />
           <Routes>
             <Route path="/" element={<About />} />
-            <Route path="/FindTheOne" element={<FindTheOne searchQuery={searchQuery}/>} />
+            <Route
+              path="/FindTheOne"
+              element={<FindTheOne searchQuery={searchQuery} />}
+            />
             <Route path="/favCards" element={<FavoritCards />} />
             <Route path="/myCards" element={<MyCards />} />
             <Route path="/register" element={<Register />} />
             <Route path="/sandBox" element={<SandBox />} />
+            {/* הוספת הפניה לנתיב ברירת מחדל */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
           <Footer />
         </BrowserRouter>
       </UserProvider>
     </ThemeProvider>
   );
-}
+};
 
 export default App;
